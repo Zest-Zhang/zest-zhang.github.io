@@ -13,5 +13,8 @@
     "markdown-it-toc-done-right": "^4.2.0",
     "nunjucks": "^3.2.4",
     "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^12.2.3"
   }
 }
