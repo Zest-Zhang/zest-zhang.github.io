@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies & build
         run: |
           npm install
+          npm install tailwindcss@3.3.2
           npm run build          
 
       - name: Deploy
