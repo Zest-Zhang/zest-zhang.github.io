@@ -2,81 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6a360d9-b158-43e1-b543-5be91d70be08" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/blog/2016-summary.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/2017-summary.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/2018-cantonpop-list.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/2018-summary.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/2019-summary.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/2020-summary.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/2022-summary.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/533-travel-middle-school.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/a-poem-for-you.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/aliyun-cdn-tutorial.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/announcing-docmate.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/announcing-serlina.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/be-a-creator.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/cat-capriccio.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/declarative-programming-is-the-future.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dentist-exp.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/do-have-faith-with-yourself.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/donation.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/everyone-can-use-regexp.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/everything-is-about-trade-off.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/from-blog-migration-to-fun-of-creation.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/gitlab-ci-runner.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/how-do-i-take-note.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/how-do-i-track-app-price.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/how-svelte-set-state-works.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/how-to-record-cover.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/how-to-use-code-snippets.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/ipad-pro-11-review.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/is-static-type-in-javascript-a-burden.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/lan-ni-li-jun-yi.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/leaving-alibaba.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/letter-from-few-years-ago.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/letters-from-reader.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/modern-react.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/my-coding-road.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/my-liqi.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/my-oss-donation-budget.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/my-underground-publication.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/my-wubi-exp.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/nearly-blog-change.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/newness.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/nonviolent-communication.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/note-to-new-programming-students.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/one-year-after-dropping-out-of-school.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/one-year-of-bulking.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/open-for-comment.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/piano-on-computer-keyboard.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/react-and-the-way-building-web-ui.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/react-and-vue.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/read-badass-making-users-awesome.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/read-grid-writing-method.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/reading-tim-cook.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/reason-why-your-blog-is-not-alive.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/regret-minimization-framework.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/say-in-21.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/say-in-28.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/sony-discman-d9.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/svelte.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/synology-ds216j-exp.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/talking-about-dropout-again.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/tesla-model-3-review.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/the-book-nextjs-in-action.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/things-i-learnt-after-6-years-as-software-engineer.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/things-i-learnt-at-school.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/think-deeper.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/to-frontend-prejudicers.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/to-hongkong-people.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/tools-of-my-macbook.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/trick-for-reading-source-code.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/trip-from-guangzhou-to-suzhou.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/vue-and-webpack.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/want-it-cuz-it-is-right.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/what-i-have-done-at-UC.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/what-is-tailwindcss-and-how-did-i-apply-it-on-my-blog.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/xbox-series-s.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/_data/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/_donate.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_donate.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/_footer.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_footer.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/_layout.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_layout.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/_og.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_og.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/_umami.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_umami.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/home.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/home.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/page.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/page.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/post.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/post.njk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,29 +28,30 @@
   </component>
   <component name="ProjectId" id="2Q92iLi2VbzusWkN3MoS9uhsSNs" />
   <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="1" id="Remove" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/zzt/Desktop/0.zest-zhang.github.io",
-    "nodejs_package_manager_path": "pnpm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zzt/Desktop/zest-zhang.github.io&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -126,6 +64,11 @@
       <workItem from="1684818228385" duration="29000" />
       <workItem from="1690171218509" duration="778000" />
       <workItem from="1690174742614" duration="235000" />
+      <workItem from="1690176957309" duration="5181000" />
+      <workItem from="1690183527567" duration="417000" />
+      <workItem from="1690262405889" duration="4184000" />
+      <workItem from="1690344758390" duration="4768000" />
+      <workItem from="1690429784934" duration="46000" />
     </task>
     <servers />
   </component>

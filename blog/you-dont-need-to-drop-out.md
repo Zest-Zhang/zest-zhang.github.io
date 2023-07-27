@@ -4,8 +4,7 @@ layout: post
 tags: blog
 date: 2016-11-06
 # cover https://gbstatic.djyde.com/cover/ad-studio-bZ_RkRKE0Po-unsplash.jpg?x-oss-process=style/cover
-categories:
-  - Thinking
+# 星标
 pin: true
 ---
 
