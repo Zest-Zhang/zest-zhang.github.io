@@ -19,18 +19,16 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.21.3
+          node-version: 16
 
       - name: Install dependencies & build
         run: |
-          npm install
-          npm install tailwindcss@3.3.2
+          npm ci
           npm run build          
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./_site
-          # 在仓库的 secrets 中设置了名为 GH_TOKEN 的令牌
           personal_token: ${{ secrets.GH_TOKEN }}
-          # cname: zestzhang.top
+          #cname: zestzhang.top
