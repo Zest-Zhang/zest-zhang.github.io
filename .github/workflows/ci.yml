@@ -32,4 +32,5 @@ jobs:
         with:
           publish_dir: ./_site
           personal_token: ${{ secrets.GH_TOKEN }}
-          # cname: zestzhang.top
+          # 定义域名
+          cname: zestzhang.top
