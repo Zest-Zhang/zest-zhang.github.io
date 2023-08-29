@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6a360d9-b158-43e1-b543-5be91d70be08" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/_data/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/_data/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/_donate.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_donate.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/_footer.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_footer.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/_layout.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_layout.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/_og.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_og.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/_umami.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/_umami.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/home.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/home.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/page.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/page.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/post.njk" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/post.njk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/you-dont-need-to-drop-out.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +60,7 @@
       <workItem from="1690429784934" duration="46000" />
       <workItem from="1690445020384" duration="6861000" />
       <workItem from="1690452683273" duration="4025000" />
+      <workItem from="1693302013135" duration="308000" />
     </task>
     <servers />
   </component>
