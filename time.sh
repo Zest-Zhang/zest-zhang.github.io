@@ -5,4 +5,4 @@ TODAY=$(date +%Y-%m-%d)
 
 git add .
 git commit -m "$TODAY"
-git push origin gh-pages -f
+git push origin master -f
