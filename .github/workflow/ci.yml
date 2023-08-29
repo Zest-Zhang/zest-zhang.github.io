@@ -34,3 +34,6 @@ jobs:
           # 在仓库的 secrets 中设置了名为 GH_TOKEN 的令牌
           personal_token: ${{ secrets.GH_TOKEN }}
           # cname: zestzhang.top
+
+      - name: Switch to _site directory
+        run: cd _site
