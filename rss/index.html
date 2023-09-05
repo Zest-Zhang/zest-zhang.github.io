@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title></title>
+  <subtitle></subtitle>
+  <link href="" rel="self"/>
+  <link href=""/>
+  <updated>2023-09-04T00:00:00Z</updated>
+  <id></id>
+  <author>
+    <name></name>
+  </author>
+  
+  <entry>
+    <title>git的常用代码和使用场景</title>
+    <link href="/blog/git常用代码及使用场景/"/>
+    <updated>2023-09-04T00:00:00Z</updated>
+    <id>/blog/git常用代码及使用场景/</id>
+    <content type="html">&lt;p&gt;本篇文章并不是 git 操作的全面科普，而是对 git 常用操作的代码和使用场景进行总结。&lt;/p&gt;
+&lt;p&gt;以下是 git 的常用代码和使用场景：&lt;/p&gt;
+&lt;h2 id=&quot;%E4%B8%8A%E4%BC%A0%E6%96%B0%E4%BB%93%E5%BA%93&quot; tabindex=&quot;-1&quot;&gt;上传新仓库&lt;/h2&gt;
+&lt;p&gt;使用场景：在桌面新建项目，想把这个项目上传到 github 上的新仓库时。&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 右键 git bash 需要上传的目录，依次输入以下代码：&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; init&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; status&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit &lt;span class=&quot;token parameter variable&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;注释&quot;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; remote &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; origin url&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push origin master&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;根据需要修改 commit message（就是 &lt;code&gt;注释&lt;/code&gt; 二字），url 则是在 github 新建仓库后复制一下即可。&lt;/p&gt;
+&lt;h2 id=&quot;%E4%BD%BF%E7%94%A8git-push%E4%B8%8A%E4%BC%A0&quot; tabindex=&quot;-1&quot;&gt;使用git push上传&lt;/h2&gt;
+&lt;p&gt;使用场景：master 分支使用 git push 上传（而不是 git push origin master）&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push --set-upstream origin master&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;它的作用很明显，可以少打两个单词。&lt;/p&gt;
+&lt;p&gt;如果有其他分支也想这样做，比如 gh-pages 分支，假设已经新建了 gh-pages 分支，使用以下代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout gh-pages&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push --set-upstream origin gh-pages&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以后先用 &lt;code&gt;git checkout gh-pages&lt;/code&gt; 切换到 gh-pages 分支，再使用 git push 即可。&lt;/p&gt;
+&lt;h2 id=&quot;git-%E6%8F%90%E4%BA%A4%E8%B6%85%E6%97%B6&quot; tabindex=&quot;-1&quot;&gt;git 提交超时&lt;/h2&gt;
+&lt;p&gt;使用场景：出现 &lt;code&gt;Failed to connect to github.com port 443 after 21074 ms: Timed out&lt;/code&gt; 的超时错误&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 增加代理&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; config &lt;span class=&quot;token parameter variable&quot;&gt;--global&lt;/span&gt; http.proxy &lt;span class=&quot;token string&quot;&gt;&#39;socks5h://127.0.0.1:7890&#39;&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 增加 config 文件&lt;/span&gt;&lt;br /&gt;$ &lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; ~/.ssh/config&lt;br /&gt;Host github.com&lt;br /&gt;Hostname ssh.github.com&lt;br /&gt;IdentityFile /c/users/xxx/.ssh/github_id_rsa&lt;br /&gt;User &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt;&lt;br /&gt;Port &lt;span class=&quot;token number&quot;&gt;443&lt;/span&gt;&lt;br /&gt;ProxyCommand connect &lt;span class=&quot;token parameter variable&quot;&gt;-S&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;.0.1:7890 %h %p&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这个错误困扰过我很久，明明网络不卡、上 github 也没问题，一提交就出现超时的问题，后来在 v2ex 看到相同问题的帖子，用里面的方法（就是以上代码）解决了问题。&lt;/p&gt;
+&lt;h2 id=&quot;%E6%92%A4%E9%94%80%E5%8F%98%E6%9B%B4&quot; tabindex=&quot;-1&quot;&gt;撤销变更&lt;/h2&gt;
+&lt;p&gt;使用场景：想要撤销自己 push 到 github 上的代码&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 获取历史 commit 记录&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; reflog&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# HEAD 改成想要回溯到的 commit&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; reset HEAD&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push origin master &lt;span class=&quot;token parameter variable&quot;&gt;-f&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;需要注意，&lt;code&gt;git reset&lt;/code&gt; 个人用可以，团队配合用 &lt;code&gt;git revert&lt;/code&gt; 更好，原因看演示：&lt;/p&gt;
+&lt;p&gt;当前处于 C2 这个 commit 状态上，使用 &lt;code&gt;git revert C2&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1679408783870.png&quot; alt=&quot;uTools_1679408783870&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;奇怪，撤销的 commit 记录后面居然多了一个新 commit ，原因：新 commit 记录 &lt;code&gt;C2&#39;&lt;/code&gt; 引入了更改，这些更改刚好是用来撤销 &lt;code&gt;C2&lt;/code&gt; 这个 commit 的，也就是说，&lt;code&gt;C2&#39;&lt;/code&gt; 的状态与 &lt;code&gt;C1&lt;/code&gt; 是相同的，revert 之后就可以把更改推送到远程 repo 与别人分享了。&lt;/p&gt;
+&lt;p&gt;不过，revert 的 commit 参数和 reset 不太一样，reset 的参数使用后就回到了参数对应的那个 commit 记录，revert 参数使用后回到了该参数的上一 个 commit 记录，而且不会影响前面的 commit 记录，reset 使用后前面的 commit 记录会消失，用 &lt;code&gt;git log&lt;/code&gt; 查询不到，可以用 &lt;code&gt;git reflog&lt;/code&gt; 查询。&lt;/p&gt;
+&lt;h2 id=&quot;feature%E5%88%86%E6%94%AF&quot; tabindex=&quot;-1&quot;&gt;feature分支&lt;/h2&gt;
+&lt;p&gt;使用场景：开发一个新功能就新建 feature 分支，避免把 dev 分支搞乱，在 feature 上开发，完成后，新功能开发好就把 feature 分支合并到开发分支 dev，最后，删除 feature 分支。&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 开发代号为 vulcan 的新功能&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout &lt;span class=&quot;token parameter variable&quot;&gt;-b&lt;/span&gt; feature-vulcan&lt;br /&gt;checkouted to a new branch &lt;span class=&quot;token string&quot;&gt;&#39;feature-vulcan&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# vulcan 功能开发好了&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; vulcan.js&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; status&lt;br /&gt;On branch feature-vulcan&lt;br /&gt;	new file:   vulcan.js&lt;br /&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit &lt;span class=&quot;token parameter variable&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;add feature vulcan&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 合并到开发分支 dev，然后删除 feature、切换到 `dev`：&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; rebase dev&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; branch &lt;span class=&quot;token parameter variable&quot;&gt;-d&lt;/span&gt; feature-vulcan&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout dev&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果突然接到上级命令，因为 xx 原因，新功能取消，所以在 feature 没合并到 dev 时强行删除 feature：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; branch &lt;span class=&quot;token parameter variable&quot;&gt;-D&lt;/span&gt; feature-vulcan&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;（使用小写的参数 &lt;code&gt;-d&lt;/code&gt; 会删除失败，因为 feature-vulcan 分支还没被合并，如果删除，将丢失掉修改）&lt;/p&gt;
+&lt;h2 id=&quot;bug%E5%88%86%E6%94%AF&quot; tabindex=&quot;-1&quot;&gt;bug分支&lt;/h2&gt;
+&lt;p&gt;使用场景：每个 bug 都可以通过新建一个 bug 分支修复，修复后，合并分支，然后将临时分支删除。所以，当你接到任务（修复一个代号 101 的 bug）时，很自然地，你想创建一个分支 &lt;code&gt;issue-101&lt;/code&gt; 来修复它。但是，当前正在&lt;code&gt;dev&lt;/code&gt;上进行的工作还没有提交，不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需 1 天时间。此时，要在两个小时内修复这个 bug，如何处理？&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 前提：在 dev 上工作且生产分支是 master，bug 来自生产分支 master&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 使用 git stash 保存 dev 上进行到一半的工作&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 先确定要在哪个分支上修复 bug，假定需要在 master 分支上修复，就在 master 分支上创建 bug 分支&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout master&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout &lt;span class=&quot;token parameter variable&quot;&gt;-b&lt;/span&gt; issue-101&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 修复 bug：把“git is free software ...”改为“git is a free software ...”，然后提交&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; readme.txt &lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit &lt;span class=&quot;token parameter variable&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;fix bug 101&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 修复完成后，切换到 master 分支，并完成合并，最后删除 issue-101 分支&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout master&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; merge --no-ff &lt;span class=&quot;token parameter variable&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;merged bug fix 101&quot;&lt;/span&gt; issue-101&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# bug 已经修复，继续回 dev 分支工作&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout dev&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 恢复 dev 上进行到一半的工作并删除 stash 记录&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash pop&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在 master 上修复 bug 后，由于 dev 是从 master 上分出来的，所以，这个 bug 其实在当前 dev 分支上也存在。&lt;/p&gt;
+&lt;p&gt;如何在 dev 上修复同样的 bug？&lt;/p&gt;
+&lt;p&gt;git 提供了 &lt;code&gt;cherry-pick&lt;/code&gt; 命令，它能复制一个特定的提交到当前分支：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 把在 issue-101 分支上的提交记录 4c805e2 复制到 dev 分支&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout dev&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; cherry-pick 4c805e2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用 &lt;code&gt;git cherry-pick&lt;/code&gt; 后，就不用在 dev 分支上把修 bug 的过程再重复一遍了。&lt;/p&gt;
+&lt;p&gt;cherry-pick 实战：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;gh-pages 上有两个文件：
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693813494285.png&quot; alt=&quot;1&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;切换到 master 分支（只有一个文件）：
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693813521925.png&quot; alt=&quot;2&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;把 gh-pages 提交第二个文件时的 commit 号复制一下，然后使用 cherry-pick（发现 master 分支上也有第二个文件了）：
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693813576650.png&quot; alt=&quot;3&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;git-stash%E4%BF%9D%E5%AD%98%E6%9C%AAcommit%E7%9A%84%E4%BB%A3%E7%A0%81&quot; tabindex=&quot;-1&quot;&gt;git stash保存未commit的代码&lt;/h2&gt;
+&lt;p&gt;使用场景：某一天，你正在 feature 分支开发新需求，突然产品经理跑过来说线上有 bug，必须马上修复。此时，你在 dev 分支上开发功能，开发到一半，于是你想切到 master 分支，就会看到以下报错：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/68f81dbc24944538bf63d8530f62cc2a%7Etplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.webp&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;因为当前有文件更改了，需要提交 commit 保持工作区干净才能切分支。由于情况紧急，你只有 commit 上去，commit 信息也随便写了个“暂存代码”，于是该分支提交记录多了一条黑历史。&lt;/p&gt;
+&lt;p&gt;这时，可以用 &lt;code&gt;git stash&lt;/code&gt; 将未 commit 的代码存起来，让你的工作目录变得干净，然后就能提交、尝试修复 bug 了，后续再用 &lt;code&gt;git stash pop&lt;/code&gt; 恢复 dev 分支上未 commit 的代码。&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 保存 master 分支未commit的代码，然后就能切换到 bug 分支了&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 推荐用 pop，恢复的同时删除stash记录&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash pop&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 修复完线上问题，切回 feature 分支并恢复代码&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 用 git stash apply 恢复后，stash 内容并没有删除，还要用 git stash drop 删除，比较麻烦&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash apply&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 保存当前未 commit 的代码并添加备注&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash save &lt;span class=&quot;token string&quot;&gt;&quot;备注&quot;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 查看 stash 记录&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash list&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 删除 stash 记录&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; stash &lt;span class=&quot;token function&quot;&gt;clear&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实战如下：&lt;/p&gt;
+&lt;p&gt;（mater 分支）没有 commit 的 1.txt（内容是 21）用 git stash 保存起来：
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750009531.png&quot; alt=&quot;uTools_1693750009531&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;切换到 gh-pages 分支（1.txt 干干净净）：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750069262.png&quot; alt=&quot;uTools_1693750069262&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;切换回 master 分支（这里的 1.txt 是空的）：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750169574.png&quot; alt=&quot;uTools_1693750169574&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;恢复上次在 master 上修改的文件（git stash apply）：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750257703.png&quot; alt=&quot;uTools_1693750257703&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;pr&quot; tabindex=&quot;-1&quot;&gt;PR&lt;/h2&gt;
+&lt;p&gt;使用场景：Pull Request 指的是自己修改源代码后，请求对方采纳该修改时的一种行为，比如 修复 bug 后请求对方采纳该 bug。&lt;/p&gt;
+&lt;p&gt;步骤:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;fork&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;clone&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;通过看最右边的蓝色括号内容确认 branch（后面同理）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 clone 出来的目录上 git bash&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建其他 branch
+（创建一个 work branch，用来 PR）
+创建 wok branch 并自动切换：&lt;code&gt;git checkout -b work&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;添加或修改 codes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git diff 检查修改是否完成&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用浏览器打开，查看显示效果是否正常（二次确认），
+无错后将添加的 codes  commit 至本地 repo
+&lt;code&gt;git add index.html   git commit -m &amp;quot;message&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建远程branch
+要从 gitHub 发送 Pull Request，&lt;strong&gt;gitHub 端的 repo 中必须有一个包含了修改后代码的branch&lt;/strong&gt;，现在创建本地 work branch 的相应远程 branch
+&lt;code&gt;git push origin work&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开 gitHub 的“用户名/first--pr”页，确认 work  branch 是否被创建，以及是否已包含添加的代码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 github 的自己的 repo 里点击 Pull Request，然后点击 work branch 比较添加或修改的代码差异，如下图（绿色的内容是修改的）
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1679971577827.png&quot; alt=&quot;uTools_1679971577827&quot; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;确认内容无误后点击 create Pull Request，然后在评论栏中简明扼要地描述本次进行 Pull Request 的理由&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击 Send Pull Request 发送 PR，等待管理员合并即可&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不进行 Fork 直接从 branch 发送 Pull Request
+这个方法也值得在 gitHub上 进行开发的团队借鉴
+一般说来，在 gitHub 上修改对方的代码时，需要先将 repo  Fork 到本地，然后再修改代码，发送 Pull Request，
+但是，如果用户对该 repo 有编辑权限（可能是项目经理邀请开发人员），则可以直接创建 branch ，从 branch 发送 Pull Request。利用这一设计，团队开发时不妨为每一名成员赋予编辑权限，免去 Fork仓 库的麻烦。这样，成员在有需要时就可以创建自己的 branch ，然后直接向 master  branch 等发送 Pull Request&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为了避免 PR 冲突，PR 前，要拉取（git fetch + git merge）最新代码，PR 冲突的解决方法如下：
+使用场景：PR 冲突：PR 的人太多，来不及合并，比如：&lt;a href=&quot;https://github.com/ituring/first-pr/pull/2378&quot;&gt;1&lt;/a&gt;、&lt;a href=&quot;https://github.com/ituring/first-pr/pull/2379&quot;&gt;2&lt;/a&gt; PR 修改同一地方，1 先被合并，2 的页面出现以下状态：
+（提示 index.html 冲突了，需要先解决这个冲突，然后重新 push）&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1680774812598.png&quot; alt=&quot;uTools_1680774812598&quot; /&gt;
+代码：&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 方法：拉取最新代码&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 远程分支是 gh-pages，包含 pr 的本地分支是 master&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; remote &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; upstream https://github.com/ituring/first-pr&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# git fetch + git merge 可以先将远程仓库中的代码拉取到本地仓库中，再手动进行代码合并&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# git pull 拉取代码的同时进行代码合并，这样可能会覆盖本地的修改，更推荐用 git fetch + git merge&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; fetch origin gh-pages&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout master&lt;br /&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; merge origin gh-pages&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# 打开 bash 上提示冲突的文件并修改&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;很多知识其实都是这样：看书或看视频不如自己实际操作一遍。所以，在文章的最后推荐一个不错的 git 练习网站，点击&lt;a href=&quot;https://learngitbranching.js.org/?locale=zh_CN&quot;&gt;这里&lt;/a&gt;进入。&lt;/p&gt;
+&lt;p&gt;以上就是 git 的常用代码和使用场景，感谢阅读~&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>为什么做这个博客</title>
+    <link href="/blog/为什么做这个博客/"/>
+    <updated>2023-09-03T00:00:00Z</updated>
+    <id>/blog/为什么做这个博客/</id>
+    <content type="html">&lt;p&gt;尽管已经搭建过很多博客了（hexo、vuepress、11ty），但前面的博客搭建效果并不满意，因此迟迟没有开始写文章。&lt;/p&gt;
+&lt;p&gt;现在的这个博客还算满意，极简的风格，符合自己的价值观，所以就开始想写文章了，这是本博客的第一篇文章，希望能写好~&lt;/p&gt;
+&lt;p&gt;以下是我做这个博客的原因：&lt;/p&gt;
+&lt;h2 id=&quot;%E7%94%A8%E6%9D%A5%E4%BB%8B%E7%BB%8D%E8%87%AA%E5%B7%B1&quot; tabindex=&quot;-1&quot;&gt;用来介绍自己&lt;/h2&gt;
+&lt;p&gt;你可以把 你是怎样的人、想和怎么样的人共事、未来想做什么 等内容都放里面，如果别人（比如 朋友、hr、面试官）想了解现在的你，把博客链接发给他们就可以了。&lt;/p&gt;
+&lt;p&gt;博客更偏向于让朋友了解我是什么样的人和我想做什么（比如对交流的要求）。&lt;/p&gt;
+&lt;h2 id=&quot;%E7%BB%B4%E6%8A%A4%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2%E4%B8%8D%E6%98%AF%E4%B8%80%E4%BB%B6%E9%9A%BE%E4%BA%8B&quot; tabindex=&quot;-1&quot;&gt;维护一个博客不是一件难事&lt;/h2&gt;
+&lt;p&gt;维护一个博客不是一件难事，可能刚开始建站时比较麻烦，但维护起来不需要付出太多（域名费用 + 写文章的时间精力成本），而且可以不限篇幅，不限频率。&lt;/p&gt;
+&lt;h2 id=&quot;%E6%83%B3%E6%8A%8A%E7%9F%A5%E8%AF%86%E8%A1%A8%E8%BE%BE%E5%BE%97%E6%9B%B4%E6%B8%85%E6%A5%9A&quot; tabindex=&quot;-1&quot;&gt;想把知识表达得更清楚&lt;/h2&gt;
+&lt;p&gt;道可道，非常道。很多技术教程里的东西表述得很清楚，但在实战的时候会遇到很多问题，比如 忽略了某个细节、内容表述容易引起误解，因为某样知识或技能的细节也许教程的作者都清楚了，但做教程的时候因为各种原因没说，比如 忘记说了、认为这个细节太简单就不说了，这会给初学者造成很大的困扰，进而走了很多弯路，浪费了很多时间；如果有一个博客，自己可以把细节都记下来，把想表达的某样知识表达得更清楚，那学起来应该会更轻松吧；听起来似乎有点像读书笔记，不过实际上应该不只是读书笔记，看看下面内容就明白了。&lt;/p&gt;
+&lt;h2 id=&quot;%E5%88%86%E4%BA%AB%E7%94%9F%E6%B4%BB%E7%BB%8F%E9%AA%8C%E5%92%8C%E4%B8%AA%E4%BA%BA%E6%83%B3%E6%B3%95&quot; tabindex=&quot;-1&quot;&gt;分享生活经验和个人想法&lt;/h2&gt;
+&lt;p&gt;如果有一个博客，陌生人通过博客了解到你是怎么样的人、你有什么灵感、你做过什么，比如 正准备找工作，一位 HR（陌生人）要了解你，一份简历很显然不足以让他了解你的价值，如果你有一个精彩的博客，HR 也许能通过你的博客了解你对技术的属于自己的思考、你在业余时间在想什么，它能让陌生人了解你是什么样的人。&lt;/p&gt;
+&lt;p&gt;这个博客除了技术内容，还有更多的生活经验和个人想法。人是懒惰的，而技术文章也没那么好写，所以，只写技术文章大概率不会坚持写博客，因为接触过的只写技术文章的博主的博客基本上都已经好几年不更新了；希望自己既有技术文章，也有生活经验文章，文章都以实用为主，没有碎碎念或乱七八糟的吐槽，因此更新不会很频繁，不过应该不会停止更新，毕竟，一个博客的死掉不是不再更新，而是无法访问。&lt;/p&gt;
+&lt;h2 id=&quot;%E8%83%BD%E5%A4%9F%E4%BA%A4%E5%88%B0%E5%BE%88%E5%A4%9A%E5%BF%97%E5%90%8C%E9%81%93%E5%90%88%E7%9A%84%E6%9C%8B%E5%8F%8B&quot; tabindex=&quot;-1&quot;&gt;能够交到很多志同道合的朋友&lt;/h2&gt;
+&lt;p&gt;为什么博客在结交志同道合的朋友方面的潜力要远胜于原始的交谈方式？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;博客无地域限制，整个互联网上从 A 到 B 只有一个点击的距离，而传统的建立朋友圈子的方法则受到地域限制&lt;/li&gt;
+&lt;li&gt;如果按照以前结交朋友的方式，需要互相聊天，交流观点，然后才逐渐熟悉起来，但这需要一个较长的过程，而且更糟糕的是，当你遇到另一个陌生人，又要把整个过程重复一次，表达你已经对老友表达过的那番想法。可博客却做到了“一次表达，无数次阅读”，当我看到一个写了好几年的博客，看完了之后我仿佛和这个人交谈了很久&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上就是写这个博客的原因啦，感谢阅读~&lt;/p&gt;
+</content>
+  </entry>
+</feed>

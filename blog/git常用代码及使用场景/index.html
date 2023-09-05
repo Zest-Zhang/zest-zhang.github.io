@@ -1,0 +1,187 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="git的常用代码和使用场景" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zestzhang.top/blog/git常用代码及使用场景/" />
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism.min.css">
+  
+  <title>git的常用代码和使用场景 | Zest&#39;s Blog</title>
+  
+</head>
+<body>
+  
+<div>
+  <div class="container mx-auto prose py-12 sm:py-24 px-12 sm:px-0">
+    <div class="mb-12">
+      <a class="no-underline font-bold" href="/">Zest&#39;s Blog</a>
+    </div>
+    <h1>git的常用代码和使用场景</h1>
+    <div class="italic text-gray-500">
+      2023/09/04
+    </div>
+    <div>
+      <p>本篇文章并不是 git 操作的全面科普，而是对 git 常用操作的代码和使用场景进行总结。</p>
+<p>以下是 git 的常用代码和使用场景：</p>
+<h2 id="%E4%B8%8A%E4%BC%A0%E6%96%B0%E4%BB%93%E5%BA%93" tabindex="-1">上传新仓库</h2>
+<p>使用场景：在桌面新建项目，想把这个项目上传到 github 上的新仓库时。</p>
+<p>代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 右键 git bash 需要上传的目录，依次输入以下代码：</span><br><span class="token function">git</span> init<br><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span><br><span class="token function">git</span> status<br><span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"注释"</span><br><span class="token function">git</span> remote <span class="token function">add</span> origin url<br><span class="token function">git</span> push origin master</code></pre>
+<p>根据需要修改 commit message（就是 <code>注释</code> 二字），url 则是在 github 新建仓库后复制一下即可。</p>
+<h2 id="%E4%BD%BF%E7%94%A8git-push%E4%B8%8A%E4%BC%A0" tabindex="-1">使用git push上传</h2>
+<p>使用场景：master 分支使用 git push 上传（而不是 git push origin master）</p>
+<p>代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token function">git</span> push --set-upstream origin master</code></pre>
+<p>它的作用很明显，可以少打两个单词。</p>
+<p>如果有其他分支也想这样做，比如 gh-pages 分支，假设已经新建了 gh-pages 分支，使用以下代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token function">git</span> checkout gh-pages<br><span class="token function">git</span> push --set-upstream origin gh-pages</code></pre>
+<p>以后先用 <code>git checkout gh-pages</code> 切换到 gh-pages 分支，再使用 git push 即可。</p>
+<h2 id="git-%E6%8F%90%E4%BA%A4%E8%B6%85%E6%97%B6" tabindex="-1">git 提交超时</h2>
+<p>使用场景：出现 <code>Failed to connect to github.com port 443 after 21074 ms: Timed out</code> 的超时错误</p>
+<p>代码：</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># 增加代理</span><br><span class="token function">git</span> config <span class="token parameter variable">--global</span> http.proxy <span class="token string">'socks5h://127.0.0.1:7890'</span><br><br><span class="token comment"># 增加 config 文件</span><br>$ <span class="token function">cat</span> ~/.ssh/config<br>Host github.com<br>Hostname ssh.github.com<br>IdentityFile /c/users/xxx/.ssh/github_id_rsa<br>User <span class="token function">git</span><br>Port <span class="token number">443</span><br>ProxyCommand connect <span class="token parameter variable">-S</span> <span class="token number">127.0</span>.0.1:7890 %h %p</code></pre>
+<p>这个错误困扰过我很久，明明网络不卡、上 github 也没问题，一提交就出现超时的问题，后来在 v2ex 看到相同问题的帖子，用里面的方法（就是以上代码）解决了问题。</p>
+<h2 id="%E6%92%A4%E9%94%80%E5%8F%98%E6%9B%B4" tabindex="-1">撤销变更</h2>
+<p>使用场景：想要撤销自己 push 到 github 上的代码</p>
+<p>代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 获取历史 commit 记录</span><br><span class="token function">git</span> reflog<br><span class="token comment"># HEAD 改成想要回溯到的 commit</span><br><span class="token function">git</span> reset HEAD<br><span class="token function">git</span> push origin master <span class="token parameter variable">-f</span></code></pre>
+<p>需要注意，<code>git reset</code> 个人用可以，团队配合用 <code>git revert</code> 更好，原因看演示：</p>
+<p>当前处于 C2 这个 commit 状态上，使用 <code>git revert C2</code>：</p>
+<p><img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1679408783870.png" alt="uTools_1679408783870"></p>
+<p>奇怪，撤销的 commit 记录后面居然多了一个新 commit ，原因：新 commit 记录 <code>C2'</code> 引入了更改，这些更改刚好是用来撤销 <code>C2</code> 这个 commit 的，也就是说，<code>C2'</code> 的状态与 <code>C1</code> 是相同的，revert 之后就可以把更改推送到远程 repo 与别人分享了。</p>
+<p>不过，revert 的 commit 参数和 reset 不太一样，reset 的参数使用后就回到了参数对应的那个 commit 记录，revert 参数使用后回到了该参数的上一 个 commit 记录，而且不会影响前面的 commit 记录，reset 使用后前面的 commit 记录会消失，用 <code>git log</code> 查询不到，可以用 <code>git reflog</code> 查询。</p>
+<h2 id="feature%E5%88%86%E6%94%AF" tabindex="-1">feature分支</h2>
+<p>使用场景：开发一个新功能就新建 feature 分支，避免把 dev 分支搞乱，在 feature 上开发，完成后，新功能开发好就把 feature 分支合并到开发分支 dev，最后，删除 feature 分支。</p>
+<p>代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 开发代号为 vulcan 的新功能</span><br><span class="token function">git</span> checkout <span class="token parameter variable">-b</span> feature-vulcan<br>checkouted to a new branch <span class="token string">'feature-vulcan'</span></code></pre>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># vulcan 功能开发好了</span><br><span class="token function">git</span> <span class="token function">add</span> vulcan.js<br><span class="token function">git</span> status<br>On branch feature-vulcan<br>	new file:   vulcan.js<br><br><span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"add feature vulcan"</span></code></pre>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 合并到开发分支 dev，然后删除 feature、切换到 `dev`：</span><br><span class="token function">git</span> rebase dev<br><span class="token function">git</span> branch <span class="token parameter variable">-d</span> feature-vulcan<br><span class="token function">git</span> checkout dev</code></pre>
+<p>如果突然接到上级命令，因为 xx 原因，新功能取消，所以在 feature 没合并到 dev 时强行删除 feature：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token function">git</span> branch <span class="token parameter variable">-D</span> feature-vulcan</code></pre>
+<p>（使用小写的参数 <code>-d</code> 会删除失败，因为 feature-vulcan 分支还没被合并，如果删除，将丢失掉修改）</p>
+<h2 id="bug%E5%88%86%E6%94%AF" tabindex="-1">bug分支</h2>
+<p>使用场景：每个 bug 都可以通过新建一个 bug 分支修复，修复后，合并分支，然后将临时分支删除。所以，当你接到任务（修复一个代号 101 的 bug）时，很自然地，你想创建一个分支 <code>issue-101</code> 来修复它。但是，当前正在<code>dev</code>上进行的工作还没有提交，不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需 1 天时间。此时，要在两个小时内修复这个 bug，如何处理？</p>
+<p>代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 前提：在 dev 上工作且生产分支是 master，bug 来自生产分支 master</span><br><span class="token comment"># 使用 git stash 保存 dev 上进行到一半的工作</span><br><span class="token function">git</span> stash<br><span class="token comment"># 先确定要在哪个分支上修复 bug，假定需要在 master 分支上修复，就在 master 分支上创建 bug 分支</span><br><span class="token function">git</span> checkout master<br><span class="token function">git</span> checkout <span class="token parameter variable">-b</span> issue-101</code></pre>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 修复 bug：把“git is free software ...”改为“git is a free software ...”，然后提交</span><br><span class="token function">git</span> <span class="token function">add</span> readme.txt <br><span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"fix bug 101"</span></code></pre>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 修复完成后，切换到 master 分支，并完成合并，最后删除 issue-101 分支</span><br><span class="token function">git</span> checkout master<br><span class="token function">git</span> merge --no-ff <span class="token parameter variable">-m</span> <span class="token string">"merged bug fix 101"</span> issue-101<br><span class="token comment"># bug 已经修复，继续回 dev 分支工作</span><br><span class="token function">git</span> checkout dev<br><span class="token comment"># 恢复 dev 上进行到一半的工作并删除 stash 记录</span><br><span class="token function">git</span> stash pop</code></pre>
+<p>在 master 上修复 bug 后，由于 dev 是从 master 上分出来的，所以，这个 bug 其实在当前 dev 分支上也存在。</p>
+<p>如何在 dev 上修复同样的 bug？</p>
+<p>git 提供了 <code>cherry-pick</code> 命令，它能复制一个特定的提交到当前分支：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 把在 issue-101 分支上的提交记录 4c805e2 复制到 dev 分支</span><br><span class="token function">git</span> checkout dev<br><span class="token function">git</span> cherry-pick 4c805e2</code></pre>
+<p>使用 <code>git cherry-pick</code> 后，就不用在 dev 分支上把修 bug 的过程再重复一遍了。</p>
+<p>cherry-pick 实战：</p>
+<ul>
+<li>gh-pages 上有两个文件：
+<img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693813494285.png" alt="1"></li>
+<li>切换到 master 分支（只有一个文件）：
+<img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693813521925.png" alt="2"></li>
+<li>把 gh-pages 提交第二个文件时的 commit 号复制一下，然后使用 cherry-pick（发现 master 分支上也有第二个文件了）：
+<img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693813576650.png" alt="3"></li>
+</ul>
+<h2 id="git-stash%E4%BF%9D%E5%AD%98%E6%9C%AAcommit%E7%9A%84%E4%BB%A3%E7%A0%81" tabindex="-1">git stash保存未commit的代码</h2>
+<p>使用场景：某一天，你正在 feature 分支开发新需求，突然产品经理跑过来说线上有 bug，必须马上修复。此时，你在 dev 分支上开发功能，开发到一半，于是你想切到 master 分支，就会看到以下报错：</p>
+<p><img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/68f81dbc24944538bf63d8530f62cc2a%7Etplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.webp" alt="img"></p>
+<p>因为当前有文件更改了，需要提交 commit 保持工作区干净才能切分支。由于情况紧急，你只有 commit 上去，commit 信息也随便写了个“暂存代码”，于是该分支提交记录多了一条黑历史。</p>
+<p>这时，可以用 <code>git stash</code> 将未 commit 的代码存起来，让你的工作目录变得干净，然后就能提交、尝试修复 bug 了，后续再用 <code>git stash pop</code> 恢复 dev 分支上未 commit 的代码。</p>
+<p>代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 保存 master 分支未commit的代码，然后就能切换到 bug 分支了</span><br><span class="token function">git</span> stash<br><span class="token comment"># 推荐用 pop，恢复的同时删除stash记录</span><br><span class="token function">git</span> stash pop<br><span class="token comment"># 修复完线上问题，切回 feature 分支并恢复代码</span><br><span class="token comment"># 用 git stash apply 恢复后，stash 内容并没有删除，还要用 git stash drop 删除，比较麻烦</span><br><span class="token function">git</span> stash apply<br><span class="token comment"># 保存当前未 commit 的代码并添加备注</span><br><span class="token function">git</span> stash save <span class="token string">"备注"</span><br><span class="token comment"># 查看 stash 记录</span><br><span class="token function">git</span> stash list<br><span class="token comment"># 删除 stash 记录</span><br><span class="token function">git</span> stash <span class="token function">clear</span></code></pre>
+<p>实战如下：</p>
+<p>（mater 分支）没有 commit 的 1.txt（内容是 21）用 git stash 保存起来：
+<img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750009531.png" alt="uTools_1693750009531"></p>
+<p>切换到 gh-pages 分支（1.txt 干干净净）：</p>
+<p><img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750069262.png" alt="uTools_1693750069262"></p>
+<p>切换回 master 分支（这里的 1.txt 是空的）：</p>
+<p><img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750169574.png" alt="uTools_1693750169574"></p>
+<p>恢复上次在 master 上修改的文件（git stash apply）：</p>
+<p><img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1693750257703.png" alt="uTools_1693750257703"></p>
+<h2 id="pr" tabindex="-1">PR</h2>
+<p>使用场景：Pull Request 指的是自己修改源代码后，请求对方采纳该修改时的一种行为，比如 修复 bug 后请求对方采纳该 bug。</p>
+<p>步骤:</p>
+<ul>
+<li>
+<p>fork</p>
+</li>
+<li>
+<p>clone</p>
+</li>
+<li>
+<p>通过看最右边的蓝色括号内容确认 branch（后面同理）</p>
+</li>
+<li>
+<p>在 clone 出来的目录上 git bash</p>
+</li>
+<li>
+<p>创建其他 branch
+（创建一个 work branch，用来 PR）
+创建 wok branch 并自动切换：<code>git checkout -b work</code></p>
+</li>
+<li>
+<p>添加或修改 codes</p>
+</li>
+<li>
+<p>git diff 检查修改是否完成</p>
+</li>
+<li>
+<p>用浏览器打开，查看显示效果是否正常（二次确认），
+无错后将添加的 codes  commit 至本地 repo
+<code>git add index.html   git commit -m &quot;message&quot;</code></p>
+</li>
+<li>
+<p>创建远程branch
+要从 gitHub 发送 Pull Request，<strong>gitHub 端的 repo 中必须有一个包含了修改后代码的branch</strong>，现在创建本地 work branch 的相应远程 branch
+<code>git push origin work</code></p>
+</li>
+<li>
+<p>打开 gitHub 的“用户名/first--pr”页，确认 work  branch 是否被创建，以及是否已包含添加的代码</p>
+</li>
+<li>
+<p>在 github 的自己的 repo 里点击 Pull Request，然后点击 work branch 比较添加或修改的代码差异，如下图（绿色的内容是修改的）
+<img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1679971577827.png" alt="uTools_1679971577827"></p>
+</li>
+<li>
+<p>确认内容无误后点击 create Pull Request，然后在评论栏中简明扼要地描述本次进行 Pull Request 的理由</p>
+</li>
+<li>
+<p>点击 Send Pull Request 发送 PR，等待管理员合并即可</p>
+</li>
+<li>
+<p>不进行 Fork 直接从 branch 发送 Pull Request
+这个方法也值得在 gitHub上 进行开发的团队借鉴
+一般说来，在 gitHub 上修改对方的代码时，需要先将 repo  Fork 到本地，然后再修改代码，发送 Pull Request，
+但是，如果用户对该 repo 有编辑权限（可能是项目经理邀请开发人员），则可以直接创建 branch ，从 branch 发送 Pull Request。利用这一设计，团队开发时不妨为每一名成员赋予编辑权限，免去 Fork仓 库的麻烦。这样，成员在有需要时就可以创建自己的 branch ，然后直接向 master  branch 等发送 Pull Request</p>
+</li>
+<li>
+<p>为了避免 PR 冲突，PR 前，要拉取（git fetch + git merge）最新代码，PR 冲突的解决方法如下：
+使用场景：PR 冲突：PR 的人太多，来不及合并，比如：<a href="https://github.com/ituring/first-pr/pull/2378">1</a>、<a href="https://github.com/ituring/first-pr/pull/2379">2</a> PR 修改同一地方，1 先被合并，2 的页面出现以下状态：
+（提示 index.html 冲突了，需要先解决这个冲突，然后重新 push）<img src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1680774812598.png" alt="uTools_1680774812598">
+代码：</p>
+<pre class="language-sh"><code class="language-sh"><span class="token comment"># 方法：拉取最新代码</span><br><span class="token comment"># 远程分支是 gh-pages，包含 pr 的本地分支是 master</span><br><span class="token function">git</span> remote <span class="token function">add</span> upstream https://github.com/ituring/first-pr<br><span class="token comment"># git fetch + git merge 可以先将远程仓库中的代码拉取到本地仓库中，再手动进行代码合并</span><br><span class="token comment"># git pull 拉取代码的同时进行代码合并，这样可能会覆盖本地的修改，更推荐用 git fetch + git merge</span><br><span class="token function">git</span> fetch origin gh-pages<br><span class="token function">git</span> checkout master<br><span class="token function">git</span> merge origin gh-pages<br><span class="token comment"># 打开 bash 上提示冲突的文件并修改</span></code></pre>
+</li>
+</ul>
+<p>很多知识其实都是这样：看书或看视频不如自己实际操作一遍。所以，在文章的最后推荐一个不错的 git 练习网站，点击<a href="https://learngitbranching.js.org/?locale=zh_CN">这里</a>进入。</p>
+<p>以上就是 git 的常用代码和使用场景，感谢阅读~</p>
+
+    </div>
+    <hr />
+      <div class="text-sm text-center">
+        评论和交流请发送邮件到 im.zhangzetao@gmail.com
+      </div>
+      <hr />
+    <div class="text-center">
+  <img class="w-64 inline-block" src="https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/112.jpg" alt="" />
+</div>
+    <footer class="text-sm py-12 text-gray-500 text-center">
+  Zest's Blog since 2023
+</footer>
+  </div>
+
+</div>
+
+
+
+</body>
+</html>
