@@ -2,27 +2,23 @@
 layout: page
 ---
 
-我叫张泽涛 (Zest Zhang), 1999 年出生于广东汕尾的一个小镇。好编程，阅读，音乐，写作以及一切创造类活动。 2008 年起学习编程至今。
+我叫张泽涛 (Zest Zhang)，1999 年出生于广东汕尾的一个小镇。2022 年毕业于广东技术师范大学，而后在家自学前端一年多。
 
-2014 年参加高考，录取「广州大学华软软件学院」，本科一年后退学。曾在奇志科技、阿里巴巴、蚂蚁金服、虎牙直播工作。目前在微软中国工作。
-
-小时候的理想是成为一名程序员，用技术改变世界。现在的理想是用技术创造价值 —— 做出有人觉得好用的产品或服务，并愿意为之付费。未来的妄想是参与推动中国的民主化建设。如果人生可以选择，我希望我可以在一个法治国家参选议员从事政治，业余写代码和做音乐。
-
-做这个博客的原因是我喜欢写作和思考，我希望把我的思考和经验分享给所有人。
+做这个博客的原因：我习惯收集有用的东西和总结那些东西的共性，并得到一个常用、好用的规律，这个博客可以把我的经验分享给其他人。
 
 你可以免费阅读本博客的所有内容，也欢迎你通过不同的渠道进行赞赏。最简单的赞赏方式是发送一封感谢信到我的 Email (hi@taonan.lu). 也可以自愿对我的内容付费，在每篇文章的下方都有付款方式。
 
 
 ### Projects
 
-- [Cusdis](https://cusdis.com)
-- [OSS Art](https://getoss.art/)
+- [shang-pin-hui](https://github.com/Zest-Zhang/shang_pin_hui)
+- [xiaomi-mall](https://github.com/Zest-Zhang/xiaomi-mall)
 
-### 写作
+### Articles
 
-- [Next.js 应用开发实践](https://nextjs-in-action-cn.taonan.lu/) 及其 [英文版本](https://fullstack-nextjs-in-action.taonan.lu/)
+- [git 常用代码及使用场景](https://zestzhang.top/blog/git%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/)
 
-### 联系方式
+### Contact
 
-我活跃在 [GitHub](https://github.com/djyde) 和 [Twitter](https://twitter.com/randyloop). 如果你想单独联系我，可以通过 Twitter 私讯，或通过我的 [Telegram](https://t.me/djyde) 直接联系到我。当然，我更希望你能通过 Email (hi@taonan.lu) 联系。
+* Email (im.zhangzetao@gmail.com) 
 
