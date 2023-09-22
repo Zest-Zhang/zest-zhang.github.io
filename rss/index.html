@@ -4,11 +4,91 @@
   <subtitle></subtitle>
   <link href="" rel="self"/>
   <link href=""/>
-  <updated>2023-09-20T00:00:00Z</updated>
+  <updated>2023-09-22T00:00:00Z</updated>
   <id></id>
   <author>
     <name></name>
   </author>
+  
+  <entry>
+    <title>部署两个网站时遇到的一些难题</title>
+    <link href="/blog/部署两个网站时遇到的一些问题/"/>
+    <updated>2023-09-22T00:00:00Z</updated>
+    <id>/blog/部署两个网站时遇到的一些问题/</id>
+    <content type="html">&lt;p&gt;对于程序员求职来说，提供一个可以看自己项目效果的网址给招聘方，感觉效果可能好一点。&lt;/p&gt;
+&lt;p&gt;做好项目后，本地能运行还不够，线上访问还是看不到。&lt;/p&gt;
+&lt;p&gt;这时候就要把项目部署在服务器上了，部署后会有一个 ip 或域名，发给其他人，他们就可以访问了。&lt;/p&gt;
+&lt;p&gt;部署的服务器可以选择阿里云或腾讯云，软件使用 xshell，服务器运维面板（建站工具）使用宝塔面板。&lt;/p&gt;
+&lt;p&gt;这些是看过的部署资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/qq_51055690/article/details/129516937?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169103343016777224492629%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;amp;request_id=169103343016777224492629&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-129516937-null-null.142&quot;&gt;宝塔部署node项目0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_42349568/article/details/119003360&quot;&gt;宝塔部署node项目1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;b 站：8分钟项目部署&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不过，看了很多部署的资料，照样走了不少弯路，因为资料的作者们可能考虑不会很全面，省略了一些重要的细节......&lt;/p&gt;
+&lt;p&gt;因此，本文并不准备对上面的资料内容进行总结，而是写一些自己遇到的问题和解决方法，也可以说是对那些资料的补充。&lt;/p&gt;
+&lt;p&gt;以下的问题大都是因为 放行端口 或 测试接口 或 nginx 配置 不合理出现的：&lt;/p&gt;
+&lt;h2 id=&quot;%E6%94%BE%E8%A1%8C%E7%AB%AF%E5%8F%A3&quot; tabindex=&quot;-1&quot;&gt;放行端口&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;问题：访问 &lt;a href=&quot;http://47.96.150.51:3000&quot;&gt;http://47.96.150.51:3000&lt;/a&gt; 显示 404 not found，
+方法：在宝塔开放 3000 端口，端口源为 所有 ip，不用在阿里云添加&lt;/li&gt;
+&lt;li&gt;问题：访问 &lt;a href=&quot;http://47.96.150.51:3000&quot;&gt;http://47.96.150.51:3000&lt;/a&gt; 跳转到 &lt;a href=&quot;http://47.96.150.51:3000/error%EF%BC%88nginx&quot;&gt;http://47.96.150.51:3000/error（nginx&lt;/a&gt; 代理已成功）
+方法：开放 1-65535 端口，端口源为 0.0...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3&quot; tabindex=&quot;-1&quot;&gt;测试接口&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么测试 api 时有时需要加 /api？
+这里的测试接口是前端的，前端发起请求带 /api，后端接口书写没带 /api（所以后端接口测试不用加 /api），前端的 url 通过服务器上的 nginx 代理到后端的，这个过程中去掉了 /api，所以测试接口时需要加 /api。
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1692956537250.png&quot; alt=&quot;uTools_1692956537250&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;向后端发送请求：
+（这里不需要 /api，因为后端的接口路径没有带 /api，且不是前端向后端发送请求，而是直接发送请求。）&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1692854048972.png&quot; alt=&quot;uTools_1692854048972&quot; /&gt;
+前端向后端发送请求：
+（这里需要 /api，因为前端向后端发送请求时带 /api，所以需要 nginx 代理，通过代理把 /api 去掉。）
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1692854222733.png&quot; alt=&quot;uTools_1692854222733&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;nginx%E9%85%8D%E7%BD%AE&quot; tabindex=&quot;-1&quot;&gt;nginx配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;问题：您的请求在 web 服务器中没有找到对应的站点，
+方法：在 server 里的 listen 后指定路径 root /www/wwwroot/dist;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;问题：open() &amp;quot;/www/wwwroot/dist/api/product/getPromoProduct&amp;quot; failed，这里请求到前端的 /www/wwwroot/dist/api/product/getPromoProduct
+方法：nginx 的配置问题，对于转发 &lt;code&gt;/api/&lt;/code&gt; 请求到后端服务的配置，可以按以下方式修改：&lt;/p&gt;
+&lt;pre class=&quot;language-nginx&quot;&gt;&lt;code class=&quot;language-nginx&quot;&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;location&lt;/span&gt; /api/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;proxy_pass&lt;/span&gt; http://101.132.181.9:3000/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;问题：404 错误：Whitelabel Error Page，This application has no configured error view, so you are seeing this as a fallback，There was an unexpected error (type=Not Found, status=404)
+方法：项目没有写 404 页面、页面又报 404 错误，所以显示这个默认页，实际是 404 错误，修改 nginx 配置即可：&lt;/p&gt;
+&lt;pre class=&quot;language-nginx&quot;&gt;&lt;code class=&quot;language-nginx&quot;&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;server&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;   &lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;listen&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3000&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;server_name&lt;/span&gt; 47.96.150.51&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;index&lt;/span&gt; index.html index.htm index.php&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;root&lt;/span&gt; /www/wwwroot/http&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;include&lt;/span&gt; enable-php.conf&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;location&lt;/span&gt; /api&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;proxy_pass&lt;/span&gt; http://gmall-h5-api.atguigu.cn&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;access_log&lt;/span&gt;  /www/wwwlogs/access.log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sph 和 xiaomi-vue 的 nginx 配置：&lt;/p&gt;
+&lt;pre class=&quot;language-nginx&quot;&gt;&lt;code class=&quot;language-nginx&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# sph&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;location&lt;/span&gt; /api/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;proxy_pass&lt;/span&gt; http://101.132.181.9:3000/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;# xiaomi-vue&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;location&lt;/span&gt; /api/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;proxy_pass&lt;/span&gt; http://gmall-h5-api.atguigu.cn&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;配置长得很像，但并不一样，sph 的 proxy_pass 后面有斜杠 /，
+location 为 /api/：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;proxy_pass 不带斜杠的配置，nginx 转发后有完整的 url，比如 对于 &lt;a href=&quot;http://your-domain.com/api/user&quot;&gt;http://your-domain.com/api/user&lt;/a&gt; 的请求，nginx 会直接将其转发到 &lt;a href=&quot;http://gmall-h5-api.atguigu.cn/api/user%E3%80%82&quot;&gt;http://gmall-h5-api.atguigu.cn/api/user。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;proxy_pass 带斜杠的配置，nginx 仅代理一个目录（代理后少了 /api，相当于本地代理项目的 pathRewrite: { &#39;^/api&#39;: &#39;/&#39; }，简单记：带斜杠，少 /api），比如 对于 &lt;a href=&quot;http://your-domain.com/api/user&quot;&gt;http://your-domain.com/api/user&lt;/a&gt; 的请求，的请求，nginx 将其转发到 &lt;a href=&quot;http://gmall-h5-api.atguigu.cn/user%EF%BC%8C%E9%80%82%E7%94%A8%E4%BA%8E%E5%90%8E%E7%AB%AF%E6%8E%A5%E5%8F%A3%E8%B7%AF%E5%BE%84%E6%B2%A1%E5%B8%A6&quot;&gt;http://gmall-h5-api.atguigu.cn/user，适用于后端接口路径没带&lt;/a&gt; /api、前端请求接口路径带 /api（proxy_pass 带斜杠能去掉 /api）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务器 nginx 的配置&lt;/p&gt;
+&lt;pre class=&quot;language-nginx&quot;&gt;&lt;code class=&quot;language-nginx&quot;&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;location&lt;/span&gt; /api/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;          &lt;br /&gt;    &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;proxy_pass&lt;/span&gt; http://101.xx.xx.x:3000/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;          &lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;相当于本地的 vue.config.js 里的 devServer 跨域配置：&lt;/p&gt;
+&lt;pre class=&quot;language-nginx&quot;&gt;&lt;code class=&quot;language-nginx&quot;&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;proxy:&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;    &#39;/api&#39;: &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;target:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;http://101.xx.xx.x:3000&#39;&lt;/span&gt;,&lt;br /&gt;            pathRewrite:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br /&gt;                &#39;^/api&#39;: &#39;/&#39;&lt;br /&gt;            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;二者都用于解决跨域，不过后者仅适用于本地。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;%E5%85%B6%E4%BB%96&quot; tabindex=&quot;-1&quot;&gt;其他&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;问题：宝塔部署好了网站后，修改了部署在根目录下的文件，然后进行访问发现没有显示更新后的文件，还是之前的。
+方法：开启停用缓存模式。&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/1695379083824.png&quot; alt=&quot;image-20220424114729333&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结：不是专业运维折腾部署很费时间，容易在 放行端口 和 nginx 配置上出现问题，如果没有时间和耐心，最好别折腾。&lt;/p&gt;
+&lt;p&gt;以上就是部署两个网站时遇到的一些问题啦，感谢阅读~&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>为什么要学习盲打和双拼</title>
@@ -18,7 +98,7 @@
     <content type="html">&lt;p&gt;不知道你是否有这种情况：在打字时，不停低头看键盘，而且就用二个手指头打字（俗称“二指禅”），偶尔还用一下无名指，打字没啥规律；而且，打字好累阿，随便打个字，张（zhang），居然要按 5 下按键，按键盘都按半天；还要选字，一般给 7 个选项，看得头晕，还有下一页，一选字就要找半天，让人烦躁，以至于打字的速度和正确度都很低。&lt;/p&gt;
 &lt;p&gt;简单总结一下，打字慢的原因：指法不标准（二指禅） + 有些字要按很多下按键（张，zhang） + 选字（给 7 个选项）&lt;/p&gt;
 &lt;p&gt;这样的情况糟透了，很影响正常的聊天和学习时做笔记，甚至影响自己的思考，因为可能有时候你有一个灵感，但是打字速度太慢了，打字打到一半，灵感消失了......&lt;/p&gt;
-&lt;p&gt;前阵子，我发现自己也有这种情况，所以，决定改变它。&lt;/p&gt;
+&lt;p&gt;前阵子，我发现自己也有这种情况。所以，决定改变它。&lt;/p&gt;
 &lt;h2 id=&quot;%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95&quot; tabindex=&quot;-1&quot;&gt;解决方法&lt;/h2&gt;
 &lt;p&gt;根据以上打字慢的原因，可以找到一些解决方法。&lt;/p&gt;
 &lt;p&gt;指法不标准，没事，那就练标准阿，换句话说，学学盲打。&lt;/p&gt;
@@ -71,7 +151,7 @@
 &lt;p&gt;什么是形码呢？根据笔画和部件（偏旁部首和其他）来编码的码。&lt;/p&gt;
 &lt;p&gt;形码的学习成本很高，要记很多字根和部件，难度可以参考五笔输入法。&lt;/p&gt;
 &lt;p&gt;加形，其实就是用形码。五笔输入法就是纯形码，小鹤音形输入法是 音码 + 形码。&lt;/p&gt;
-&lt;p&gt;前者学习成本太高，而且用了五笔就相当于双拼白学了，五笔是纯形码；后者看似还不错，实际有两个很大的问题：&lt;/p&gt;
+&lt;p&gt;前者学习成本太高，而且用了五笔就相当于双拼白学了，五笔是纯形码；后者看似还不错，实际上，有两个很大的问题：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;小鹤音形的词库是作者私人的，里面有一堆股票相关的词语，而且很多常用词都没有。&lt;/li&gt;
 &lt;li&gt;紧接上个问题，你发现小鹤词库不好，就想自己改词库，但是，小鹤的词库是闭源的，闭源了就没法改词库。&lt;/li&gt;
