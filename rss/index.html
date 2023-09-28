@@ -24,10 +24,10 @@
 &lt;p&gt;使用 markdown 格式（.md 的文件后缀）的软件推荐 typora，正版一般都要收费，当然，网上那个的很多。&lt;/p&gt;
 &lt;h2 id=&quot;markdown%E6%98%AF%E4%BB%80%E4%B9%88&quot; tabindex=&quot;-1&quot;&gt;Markdown是什么&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Markdown&lt;/code&gt;是一种&lt;strong&gt;轻量级&lt;/strong&gt;标记语言，作者是约翰·格鲁伯(John Gruber)。它允许人们 “使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档。
+&lt;p&gt;Markdown 是一种&lt;strong&gt;轻量级&lt;/strong&gt;标记语言，作者是约翰·格鲁伯(John Gruber)。它允许人们 “使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档。
 —— 来自维基百科&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;code&gt;Markdown&lt;/code&gt; 使用一些简单的符号（&lt;code&gt;# * [] ()&lt;/code&gt; ）来标记文本格式。它的语法非常简单，一看就会；另外，有很多非常好看的格式可以选择。虽然语法很简单，但怎么用好还是要研究一下的，以下是本人研究的常用 markdown 语法，相信作为入门还是足够的（本文就是用以下语法写的）：&lt;/p&gt;
+&lt;p&gt;Markdown 使用一些简单的符号（# * [] () ）来标记文本格式。它的语法非常简单，一看就会；另外，有很多非常好看的格式可以选择。虽然语法很简单，但怎么用好还是要研究一下的，以下是本人研究的常用 markdown 语法，相信作为入门还是足够的（本文就是用以下语法写的）：&lt;/p&gt;
 &lt;h2 id=&quot;md%E6%A0%BC%E5%BC%8F%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95&quot; tabindex=&quot;-1&quot;&gt;md格式常用语法&lt;/h2&gt;
 &lt;h3 id=&quot;%E5%AD%97%E4%BD%93%E7%BC%96%E8%BE%91&quot; tabindex=&quot;-1&quot;&gt;字体编辑&lt;/h3&gt;
 &lt;ul&gt;
@@ -38,18 +38,20 @@
 &lt;li&gt;其他标题同理。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;字体加粗：快捷键 ctrl+b 或 &lt;code&gt;**文字**&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;反引号（在 esc 键下面）：被反引号包围的文本不会被解释为 markdown 的格式化元素，而是以代码的形式显示。如果不用反引号，文字 二字加粗后显示这样：&lt;strong&gt;文字&lt;/strong&gt;；如果用反引号，显示这样：&lt;code&gt;**文字**&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;字体加粗：快捷键 ctrl+b 或 &lt;strong&gt;文字&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;反引号（在 esc 键下面）：被反引号包围的文本不会被解释为 markdown 的格式化元素，而是以代码的形式显示。
+如果不用反引号，文字 二字加粗后显示这样：&lt;strong&gt;文字&lt;/strong&gt;；如果用反引号，显示这样：
+&lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/1695875624106.png&quot; alt=&quot;1&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&quot;%E5%88%97%E8%A1%A8&quot; tabindex=&quot;-1&quot;&gt;列表&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;有序列表：&lt;code&gt;数字&lt;/code&gt; + &lt;code&gt;.&lt;/code&gt; + &lt;code&gt;空格&lt;/code&gt;，比如：
+&lt;li&gt;有序列表：数字 + . + 空格，比如：
 &lt;ol&gt;
 &lt;li&gt;list1&lt;/li&gt;
 &lt;li&gt;list2&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;无序列表：&lt;code&gt;*&lt;/code&gt; + &lt;code&gt;空格&lt;/code&gt;，比如：
+&lt;li&gt;无序列表：* + 空格，比如：
 &lt;ul&gt;
 &lt;li&gt;list1&lt;/li&gt;
 &lt;li&gt;list2&lt;/li&gt;
@@ -58,9 +60,9 @@
 &lt;/ul&gt;
 &lt;h3 id=&quot;%E6%8F%92%E5%85%A5&quot; tabindex=&quot;-1&quot;&gt;插入&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;插入代码块：快捷键： &lt;code&gt;ctrl&lt;/code&gt; + &lt;code&gt;shift&lt;/code&gt; + &lt;code&gt;k&lt;/code&gt;（或 &lt;code&gt;~~~&lt;/code&gt; + &lt;code&gt;enter&lt;/code&gt;）。&lt;/li&gt;
-&lt;li&gt;插入链接：&lt;code&gt;[text](url)&lt;/code&gt;，比如：这是 &lt;a href=&quot;https://github.com/&quot;&gt;github&lt;/a&gt; 的链接。&lt;/li&gt;
-&lt;li&gt;插入图片：&lt;code&gt;![text](图片路径)&lt;/code&gt;，比如：
+&lt;li&gt;插入代码块：快捷键： ctrl + shift + k（或 ~~~ + enter）。&lt;/li&gt;
+&lt;li&gt;插入链接：&lt;a href=&quot;url&quot;&gt;text&lt;/a&gt;，比如：这是 &lt;a href=&quot;https://github.com/&quot;&gt;github&lt;/a&gt; 的链接。&lt;/li&gt;
+&lt;li&gt;插入图片：! + &lt;a href=&quot;%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84&quot;&gt;text&lt;/a&gt;，比如：
 &lt;img src=&quot;https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/112.jpg&quot; alt=&quot;1&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;总结：markdown 语法入门很简单，学学字体编辑、列表和插入内容即可，内容很少，排版效果却比较好；因此，markdown 语法和双拼一样，是一样值得学习的高性价比知识。&lt;/p&gt;
