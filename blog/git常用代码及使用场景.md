@@ -28,7 +28,7 @@ git remote add origin url
 git push origin master
 ```
 
-根据需要修改 commit message（就是 `注释` 二字），url 则是在 github 新建仓库后复制一下即可。
+根据需要修改 commit message（就是 注释 二字），url 则是在 github 新建仓库后复制一下即可。
 
 ## 使用git push上传
 
@@ -49,11 +49,11 @@ git checkout gh-pages
 git push --set-upstream origin gh-pages
 ```
 
-以后先用 `git checkout gh-pages` 切换到 gh-pages 分支，再使用 git push 即可。
+以后先用 git checkout gh-pages 切换到 gh-pages 分支，再使用 git push 即可。
 
 ## git 提交超时
 
-使用场景：出现 `Failed to connect to github.com port 443 after 21074 ms: Timed out` 的超时错误
+使用场景：出现 Failed to connect to github.com port 443 after 21074 ms: Timed out 的超时错误
 
 代码：
 
@@ -87,15 +87,15 @@ git reset HEAD
 git push origin master -f
 ```
 
-需要注意，`git reset` 个人用可以，团队配合用 `git revert` 更好，原因看演示：
+需要注意，git reset 个人用可以，团队配合用 git revert 更好，原因看演示：
 
-当前处于 C2 这个 commit 状态上，使用 `git revert C2`：
+当前处于 C2 这个 commit 状态上，使用 git revert C2：
 
 ![uTools_1679408783870](https://raw.githubusercontent.com/Zest-Zhang/blog-img/master/uTools_1679408783870.png)
 
-奇怪，撤销的 commit 记录后面居然多了一个新 commit ，原因：新 commit 记录 `C2'` 引入了更改，这些更改刚好是用来撤销 `C2` 这个 commit 的，也就是说，`C2'` 的状态与 `C1` 是相同的，revert 之后就可以把更改推送到远程 repo 与别人分享了。
+奇怪，撤销的 commit 记录后面居然多了一个新 commit ，原因：新 commit 记录 C2' 引入了更改，这些更改刚好是用来撤销 C2 这个 commit 的，也就是说，C2' 的状态与 C1 是相同的，revert 之后就可以把更改推送到远程 repo 与别人分享了。
 
-不过，revert 的 commit 参数和 reset 不太一样，reset 的参数使用后就回到了参数对应的那个 commit 记录，revert 参数使用后回到了该参数的上一 个 commit 记录，而且不会影响前面的 commit 记录，reset 使用后前面的 commit 记录会消失，用 `git log` 查询不到，可以用 `git reflog` 查询。
+不过，revert 的 commit 参数和 reset 不太一样，reset 的参数使用后就回到了参数对应的那个 commit 记录，revert 参数使用后回到了该参数的上一 个 commit 记录，而且不会影响前面的 commit 记录，reset 使用后前面的 commit 记录会消失，用 git log 查询不到，可以用 git reflog 查询。
 
 ## feature分支
 
@@ -120,7 +120,7 @@ git commit -m "add feature vulcan"
 ```
 
 ```sh
-# 合并到开发分支 dev，然后删除 feature、切换到 `dev`：
+# 合并到开发分支 dev，然后删除 feature、切换到 dev：
 git rebase dev
 git branch -d feature-vulcan
 git checkout dev
@@ -132,11 +132,11 @@ git checkout dev
 git branch -D feature-vulcan
 ```
 
-（使用小写的参数 `-d` 会删除失败，因为 feature-vulcan 分支还没被合并，如果删除，将丢失掉修改）
+（使用小写的参数 -d 会删除失败，因为 feature-vulcan 分支还没被合并，如果删除，将丢失掉修改）
 
 ## bug分支
 
-使用场景：每个 bug 都可以通过新建一个 bug 分支修复，修复后，合并分支，然后将临时分支删除。所以，当你接到任务（修复一个代号 101 的 bug）时，很自然地，你想创建一个分支 `issue-101` 来修复它。但是，当前正在`dev`上进行的工作还没有提交，不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需 1 天时间。此时，要在两个小时内修复这个 bug，如何处理？
+使用场景：每个 bug 都可以通过新建一个 bug 分支修复，修复后，合并分支，然后将临时分支删除。所以，当你接到任务（修复一个代号 101 的 bug）时，很自然地，你想创建一个分支 issue-101 来修复它。但是，当前正在dev上进行的工作还没有提交，不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需 1 天时间。此时，要在两个小时内修复这个 bug，如何处理？
 
 代码：
 
@@ -169,7 +169,7 @@ git stash pop
 
 如何在 dev 上修复同样的 bug？
 
-git 提供了 `cherry-pick` 命令，它能复制一个特定的提交到当前分支：
+git 提供了 cherry-pick 命令，它能复制一个特定的提交到当前分支：
 
 ```sh
 # 把在 issue-101 分支上的提交记录 4c805e2 复制到 dev 分支
@@ -177,7 +177,7 @@ git checkout dev
 git cherry-pick 4c805e2
 ```
 
-使用 `git cherry-pick` 后，就不用在 dev 分支上把修 bug 的过程再重复一遍了。
+使用 git cherry-pick 后，就不用在 dev 分支上把修 bug 的过程再重复一遍了。
 
 cherry-pick 实战：
 
@@ -196,7 +196,7 @@ cherry-pick 实战：
 
 因为当前有文件更改了，需要提交 commit 保持工作区干净才能切分支。由于情况紧急，你只有 commit 上去，commit 信息也随便写了个“暂存代码”，于是该分支提交记录多了一条黑历史。
 
-这时，可以用 `git stash` 将未 commit 的代码存起来，让你的工作目录变得干净，然后就能提交、尝试修复 bug 了，后续再用 `git stash pop` 恢复 dev 分支上未 commit 的代码。
+这时，可以用 git stash 将未 commit 的代码存起来，让你的工作目录变得干净，然后就能提交、尝试修复 bug 了，后续再用 git stash pop 恢复 dev 分支上未 commit 的代码。
 
 代码：
 
@@ -249,7 +249,7 @@ git stash clear
 
 * 创建其他 branch
     （创建一个 work branch，用来 PR）
-    创建 wok branch 并自动切换：`git checkout -b work`
+    创建 wok branch 并自动切换：git checkout -b work
 
 * 添加或修改 codes
 
@@ -257,12 +257,12 @@ git stash clear
 
 * 用浏览器打开，查看显示效果是否正常（二次确认），
     无错后将添加的 codes  commit 至本地 repo 
-    `git add index.html
-    git commit -m "message"`
+    git add index.html
+    git commit -m "message"
 
 * 创建远程branch
     要从 gitHub 发送 Pull Request，**gitHub 端的 repo 中必须有一个包含了修改后代码的branch**，现在创建本地 work branch 的相应远程 branch
-    `git push origin work`
+    git push origin work
 
 * 打开 gitHub 的“用户名/first--pr”页，确认 work  branch 是否被创建，以及是否已包含添加的代码
 
