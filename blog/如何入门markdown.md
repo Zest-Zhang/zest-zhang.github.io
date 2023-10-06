@@ -1,5 +1,5 @@
 ---
-title: 为什么要学习markdown
+title: 如何入门markdown
 layout: post
 tags: blog
 date: 2023-09-28

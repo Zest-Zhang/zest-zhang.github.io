@@ -1,11 +1,9 @@
 ---
-title: git的常用代码和使用场景
+title: 用了1年git后，我总结了这些常用代码
 layout: post
 tags: blog
 date: 2023-09-04
 ---
-
-
 
 
 本篇文章并不是 git 操作的全面科普，而是对 git 常用操作的代码和使用场景进行总结。
