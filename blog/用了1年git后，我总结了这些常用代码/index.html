@@ -44,6 +44,9 @@
 <p>代码：</p>
 <pre class="language-bash"><code class="language-bash"><span class="token comment"># 增加代理</span><br><span class="token function">git</span> config <span class="token parameter variable">--global</span> http.proxy <span class="token string">'socks5h://127.0.0.1:7890'</span><br><br><span class="token comment"># 增加 config 文件</span><br>$ <span class="token function">cat</span> ~/.ssh/config<br>Host github.com<br>Hostname ssh.github.com<br>IdentityFile /c/users/xxx/.ssh/github_id_rsa<br>User <span class="token function">git</span><br>Port <span class="token number">443</span><br>ProxyCommand connect <span class="token parameter variable">-S</span> <span class="token number">127.0</span>.0.1:7890 %h %p</code></pre>
 <p>这个错误困扰过我很久，明明网络不卡、上 github 也没问题，一提交就出现超时的问题，后来在 v2ex 看到相同问题的帖子，用里面的方法（就是以上代码）解决了问题。</p>
+<p>其他方法：修改 git 配置。</p>
+<pre class="language-sh"><code class="language-sh"><span class="token function">git</span> config <span class="token parameter variable">--global</span> http.postBuffer <span class="token number">524288000</span><br><span class="token function">git</span> config <span class="token parameter variable">--global</span> http.sslVerify <span class="token boolean">false</span></code></pre>
+<p>这两个命令会增加 git 的缓存大小，并且禁用 ssl 验证，可能会带来一些安全隐患，所以用前三思（个人这样应该没问题，在公司就不要了）。</p>
 <h2 id="%E6%92%A4%E9%94%80%E5%8F%98%E6%9B%B4" tabindex="-1">撤销变更</h2>
 <p>使用场景：想要撤销自己 push 到 github 上的代码</p>
 <p>代码：</p>
