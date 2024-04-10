@@ -16,8 +16,8 @@ layout: page
 
 ### Articles
 
-- [git 常用代码及使用场景](https://zestzhang.top/blog/git%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/)
-- [为什么要学习盲打和双拼](https://zestzhang.top/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E7%9B%B2%E6%89%93%E5%92%8C%E5%8F%8C%E6%8B%BC/)
+- [用了1年git后，我总结了这些常用代码](https://zestzhang.top/blog/%E7%94%A8%E4%BA%861%E5%B9%B4git%E5%90%8E%EF%BC%8C%E6%88%91%E6%80%BB%E7%BB%93%E4%BA%86%E8%BF%99%E4%BA%9B%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/)
+- [3个方法，快速提高打字速度](https://zestzhang.top/blog/3%E4%B8%AA%E6%96%B9%E6%B3%95%EF%BC%8C%E5%BF%AB%E9%80%9F%E6%8F%90%E9%AB%98%E6%89%93%E5%AD%97%E9%80%9F%E5%BA%A6/)
 
 ### Contact
 
