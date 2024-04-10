@@ -71,6 +71,15 @@ ProxyCommand connect -S 127.0.0.1:7890 %h %p
 
 这个错误困扰过我很久，明明网络不卡、上 github 也没问题，一提交就出现超时的问题，后来在 v2ex 看到相同问题的帖子，用里面的方法（就是以上代码）解决了问题。
 
+其他方法：修改 git 配置。
+
+~~~sh
+git config --global http.postBuffer 524288000
+git config --global http.sslVerify false
+~~~
+
+这两个命令会增加 git 的缓存大小，并且禁用 ssl 验证，可能会带来一些安全隐患，所以用前三思（个人这样应该没问题，在公司就不要了）。
+
 ## 撤销变更
 
 使用场景：想要撤销自己 push 到 github 上的代码
